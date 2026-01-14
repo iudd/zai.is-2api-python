@@ -1,0 +1,11 @@
+{
+  "webdav": {
+    "huggingface": {
+      "type": "webdav",
+      "url": "https://rebun.infini-cloud.net/dav",
+      "vendor": "other",
+      "user": "iyougame",
+      "pass": "exzgmqInkoFADbjOx1ak_reGVIf_ptIZxYUtBFp3mLw"
+    }
+  }
+}
