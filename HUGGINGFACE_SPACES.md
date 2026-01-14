@@ -33,13 +33,13 @@
 
 | 变量名 | 值 | 说明 |
 |--------|-----|------|
-| `HF_TOKEN` | 你的 Hugging Face Token | 用于 API 访问和自动同步 |
+| `HF_TOKEN1` | 你的 Hugging Face Token | 用于 API 访问和自动同步 |
 | `API_MASTER_KEY` | 你的 API 密钥 | API 访问安全密钥 |
 | `WEBDAV_URL` | WebDAV 服务器地址 | 数据持久化存储地址 |
 | `WEBDAV_USER` | WebDAV 用户名 | 数据存储认证用户 |
 | `WEBDAV_PASS` | WebDAV 密码 | 数据存储认证密码 |
 
-获取 HF Token：
+获取 HF_TOKEN1：
 1. 访问 [Hugging Face Settings → Access Tokens](https://huggingface.co/settings/tokens)
 2. 点击 **"New token"**
 3. 选择 **"Write"** 权限
@@ -96,7 +96,7 @@ graph TB
 
 | Secret 名称 | 值 | 说明 |
 |-------------|-----|------|
-| `HF_TOKEN` | 你的 Hugging Face Token | 用于自动同步到 Space |
+| `HF_TOKEN1` | 你的 Hugging Face Token | 用于自动同步到 Space |
 
 ### Hugging Face Space 环境变量
 
@@ -250,7 +250,7 @@ playwright install chromium
 ### 3. 配置环境变量
 
 ```bash
-export HF_TOKEN=your_hf_token
+export HF_TOKEN1=your_hf_token
 export API_MASTER_KEY=your_secret_key
 export WEBDAV_URL=https://rebun.infini-cloud.net/dav
 export WEBDAV_USER=your_webdav_user
@@ -269,10 +269,10 @@ python main.py
 
 ### 问题 1：同步失败
 
-**错误信息**：`HF_TOKEN is not set`
+**错误信息**：`HF_TOKEN1 is not set`
 
 **解决方案**：
-1. 检查 GitHub Repository Secrets 中是否添加了 `HF_TOKEN`
+1. 检查 GitHub Repository Secrets 中是否添加了 `HF_TOKEN1`
 2. 确认 Token 具有 Write 权限
 
 ### 问题 2：Space 启动失败
