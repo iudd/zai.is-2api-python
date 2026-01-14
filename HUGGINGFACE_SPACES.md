@@ -47,7 +47,7 @@
 
 ### 3. 部署验证
 
-Space 创建完成后，GitHub Actions 会自动同步代码到 Space。
+Space 创建完成后，推送到 `zai2hf` 分支会自动同步代码到 Space。
 
 ---
 
@@ -57,7 +57,7 @@ Space 创建完成后，GitHub Actions 会自动同步代码到 Space。
 
 ### 触发条件
 
-- 每次推送到 `main` 分支时自动同步
+- 每次推送到 `zai2hf` 分支时自动同步
 - 手动触发 workflow_dispatch
 
 ### 同步内容
@@ -70,7 +70,7 @@ Space 创建完成后，GitHub Actions 会自动同步代码到 Space。
 
 ```mermaid
 graph TB
-    A[Push to main] --> B[GitHub Actions Triggered]
+    A[Push to zai2hf] --> B[GitHub Actions Triggered]
     B --> C[Checkout Code]
     C --> D[Install huggingface_hub]
     D --> E[Scan All Files]
@@ -84,7 +84,7 @@ graph TB
 1. 进入 [Actions Tab](../actions/workflows/sync-to-hf-spaces.yml)
 2. 选择 **"Sync to HF Spaces"** workflow
 3. 点击 **"Run workflow"**
-4. 选择分支并确认
+4. 选择 `zai2hf` 分支并确认
 
 ---
 
@@ -336,7 +336,7 @@ python main.py
 ### v1.0.0 (2026-01-14)
 
 - ✨ 初始版本
-- 🔄 配置自动同步到 Hugging Face Space
+- 🔄 配置自动同步到 Hugging Face Space（zai2hf 分支）
 - 💾 添加 WebDAV 数据持久化（通过环境变量配置）
 - 📚 完善文档
 
