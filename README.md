@@ -14,7 +14,7 @@ tags:
 - openai-compatible
 - fastapi
 - playwright
-short_description: Unlock the unlimited potential of Zai.is with OpenAI-compatible API interface
+short_description: Zai.is API with OpenAI compatibility
 ---
 
 # 🚀 Zai-2API: Unlock Zai.is's Unlimited Potential (Python Version)
@@ -575,5 +575,3 @@ Having problems or suggestions? We provide multiple support channels:
 **✨ Technology Freedom Begins with Sharing ✨**
 
 </div>
-
-<!-- Test commit for GitHub Actions - 2026-01-14 -->
