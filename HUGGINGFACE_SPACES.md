@@ -6,6 +6,7 @@
 
 - [快速部署](#快速部署)
 - [自动同步配置](#自动同步配置)
+- [环境变量配置](#环境变量配置)
 - [WebDAV 数据持久化](#webdav-数据持久化)
 - [手动部署](#手动部署)
 - [故障排除](#故障排除)
@@ -33,6 +34,10 @@
 | 变量名 | 值 | 说明 |
 |--------|-----|------|
 | `HF_TOKEN` | 你的 Hugging Face Token | 用于 API 访问和自动同步 |
+| `API_MASTER_KEY` | 你的 API 密钥 | API 访问安全密钥 |
+| `WEBDAV_URL` | WebDAV 服务器地址 | 数据持久化存储地址 |
+| `WEBDAV_USER` | WebDAV 用户名 | 数据存储认证用户 |
+| `WEBDAV_PASS` | WebDAV 密码 | 数据存储认证密码 |
 
 获取 HF Token：
 1. 访问 [Hugging Face Settings → Access Tokens](https://huggingface.co/settings/tokens)
@@ -83,35 +88,56 @@ graph TB
 
 ---
 
+## ⚙️ 环境变量配置
+
+### GitHub Secrets 配置
+
+在 GitHub 仓库 Settings → Secrets 中添加以下 secrets：
+
+| Secret 名称 | 值 | 说明 |
+|-------------|-----|------|
+| `HF_TOKEN` | 你的 Hugging Face Token | 用于自动同步到 Space |
+
+### Hugging Face Space 环境变量
+
+在 Space 的 Settings → Variables and secrets 中添加：
+
+```bash
+# API 安全配置
+API_MASTER_KEY=your_secure_api_key_here
+
+# WebDAV 数据持久化配置
+WEBDAV_URL=https://rebun.infini-cloud.net/dav
+WEBDAV_USER=your_webdav_username
+WEBDAV_PASS=your_webdav_password
+
+# 服务配置
+PORT=8000
+LOG_LEVEL=INFO
+```
+
+### 本地开发配置
+
+复制 `.env.example` 为 `.env` 并填入实际值：
+
+```bash
+cp .env.example .env
+# 编辑 .env 文件填入你的配置
+```
+
+---
+
 ## 💾 WebDAV 数据持久化
 
 本项目使用 WebDAV 进行数据持久化存储。
 
-### WebDAV 配置
+### WebDAV 配置说明
 
-```json
-{
-  "webdav": {
-    "huggingface": {
-      "type": "webdav",
-      "url": "https://rebun.infini-cloud.net/dav",
-      "vendor": "other",
-      "user": "iyougame",
-      "pass": "exzgmqInkoFADbjOx1ak_reGVIf_ptIZxYUtBFp3mLw"
-    }
-  }
-}
-```
-
-### 配置说明
-
-| 参数 | 值 | 说明 |
-|------|-----|------|
-| `type` | `webdav` | 连接类型 |
-| `url` | `https://rebun.infini-cloud.net/dav` | WebDAV 服务器地址 |
-| `vendor` | `other` | 供应商类型 |
-| `user` | `iyougame` | 用户名 |
-| `pass` | `exzgmqInkoFADbjOx1ak_reGVIf_ptIZxYUtBFp3mLw` | 密码 |
+| 参数 | 环境变量 | 说明 |
+|------|----------|------|
+| 服务器地址 | `WEBDAV_URL` | WebDAV 服务端点 |
+| 用户名 | `WEBDAV_USER` | 认证用户名 |
+| 密码 | `WEBDAV_PASS` | 认证密码 |
 
 ### 使用场景
 
@@ -123,9 +149,10 @@ graph TB
 ### 注意事项
 
 ⚠️ **安全提示**：
+- 所有敏感信息通过环境变量设置，不要写在代码中
 - 定期更换 WebDAV 密码
-- 不要将配置文件提交到公开仓库
-- 建议使用环境变量存储敏感信息
+- 不要将 `.env` 文件提交到公开仓库
+- 使用 GitHub Secrets 和 Space Variables 存储敏感信息
 
 ---
 
@@ -193,6 +220,9 @@ docker build -t zai-2api .
 # 本地运行
 docker run -p 8000:8000 \
     -e API_MASTER_KEY=your_secret_key \
+    -e WEBDAV_URL=https://rebun.infini-cloud.net/dav \
+    -e WEBDAV_USER=your_user \
+    -e WEBDAV_PASS=your_password \
     zai-2api
 ```
 
@@ -222,6 +252,9 @@ playwright install chromium
 ```bash
 export HF_TOKEN=your_hf_token
 export API_MASTER_KEY=your_secret_key
+export WEBDAV_URL=https://rebun.infini-cloud.net/dav
+export WEBDAV_USER=your_webdav_user
+export WEBDAV_PASS=your_webdav_password
 ```
 
 ### 4. 启动服务
@@ -263,8 +296,8 @@ python main.py
 **错误信息**：`Connection refused`
 
 **解决方案**：
-1. 检查 WebDAV 服务器地址是否正确
-2. 确认用户名和密码是否有效
+1. 检查 `WEBDAV_URL` 环境变量是否正确
+2. 确认 `WEBDAV_USER` 和 `WEBDAV_PASS` 是否有效
 3. 检查网络连接
 
 ### 问题 5：内存不足
@@ -304,7 +337,7 @@ python main.py
 
 - ✨ 初始版本
 - 🔄 配置自动同步到 Hugging Face Space
-- 💾 添加 WebDAV 数据持久化
+- 💾 添加 WebDAV 数据持久化（通过环境变量配置）
 - 📚 完善文档
 
 ---
