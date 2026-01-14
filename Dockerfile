@@ -43,8 +43,11 @@ COPY . .
 # 创建必要的目录
 RUN mkdir -p data accounts_data media zai_user_data
 
-# 暴露端口
-EXPOSE 8000
+# 暴露端口（Hugging Face Space 默认使用 7860）
+EXPOSE 7860
 
-# 启动命令（从环境变量读取端口，默认 8000）
-CMD ["sh", "-c", "python main.py --port ${PORT:-8000}"]
+# 设置环境变量
+ENV PORT=7860
+
+# 启动命令
+CMD ["python", "main.py"]
